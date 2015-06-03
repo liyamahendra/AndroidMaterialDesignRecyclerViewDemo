@@ -4,9 +4,11 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.Toast;
 
 import com.housing.mahendraliya.hellomaterial.R;
-import com.housing.mahendraliya.hellomaterial.adapters.MyAdapter;
+import com.housing.mahendraliya.hellomaterial.adapters.ProductsAdapter;
 
 import java.util.ArrayList;
 
@@ -20,18 +22,24 @@ public class MainActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        setupLayout();
+    }
+
+    private void setupLayout() {
         setContentView(R.layout.activity_main);
 
         rvProductList = (RecyclerView) findViewById(R.id.rvProductList);
-
         // use this setting to improve performance if you know that changes
         // in content do not change the layout size of the RecyclerView
         rvProductList.setHasFixedSize(true);
 
+        // The LayoutManager is responsible for positioning items on the screen.
+        // There are other layout managers to layout in a grid, or a staggered grid.
         mLayoutManager = new LinearLayoutManager(this);
         rvProductList.setLayoutManager(mLayoutManager);
 
-        mAdapter = new MyAdapter(getDataSource());
+        mAdapter = new ProductsAdapter(MainActivity.this, getDataSource());
         rvProductList.setAdapter(mAdapter);
     }
 
@@ -54,4 +62,5 @@ public class MainActivity extends Activity {
 
         return arrProducts;
     }
+
 }
